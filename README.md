@@ -146,7 +146,7 @@ skills/
 
 ## 许可证
 
-本项目采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) 许可证。
+本项目采用 [CC BY-NC 4.0](LICENSE) 许可证。
 
 - 个人学习、研究与非商业项目可以使用。
 - 公开发布衍生作品时，请注明来源。
