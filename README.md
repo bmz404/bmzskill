@@ -1,5 +1,9 @@
 ﻿# bmzskill
 
+ ![version](https://img.shields.io/badge/version-v0.1.0-blue)
+![skills](https://img.shields.io/badge/skills-5-black)
+[![license](https://img.shields.io/badge/license-CC%20BY--NC%204.0-green)](LICENSE)
+
 把音乐创作、测歌、宣发和变现，变成一套可执行的 AI 判断流程。
 
 bmzskill 由自媒体博主「白帽子（AI音乐研究中）」创建，用于帮助音乐创作者、独立音乐人和短视频博主，用 AI 辅助音乐定位、创作、测试、宣发和复盘。
