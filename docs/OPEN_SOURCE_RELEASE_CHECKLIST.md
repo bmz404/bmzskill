@@ -20,9 +20,8 @@
 - `LICENSE`
 - `VERSION`
 - `CHANGELOG.md`
-- `.gitignore`
-- `OPEN_SOURCE_RELEASE_CHECKLIST.md`
-- `判断标准说明.md`
+- `docs/OPEN_SOURCE_RELEASE_CHECKLIST.md`
+- `docs/判断标准说明.md`
 - `skills/bmz/SKILL.md`
 - `skills/bmz-lyrics-check/SKILL.md`
 - `skills/bmz-preflight/SKILL.md`
@@ -62,7 +61,7 @@
 发布前至少测试一次完整路径：
 
 1. `/bmz 新手入门`
-2. `/bmz 我想写一首关于分手后嘴硬的歌`
+2. `/bmz 开始写歌，主题为分手后嘴硬`
 3. `/bmz-lyrics-check` 检查歌词
 4. `/bmz-preflight` 检查待发布视频或首帧
 5. `/bmz-publish` 生成发布包
