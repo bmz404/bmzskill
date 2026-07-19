@@ -1,6 +1,6 @@
 ﻿# bmzskill
 
- ![version](https://img.shields.io/badge/version-v0.1.1-blue)
+ ![version](https://img.shields.io/badge/version-v0.1.2-blue)
 ![skills](https://img.shields.io/badge/skills-5-black)
 [![license](https://img.shields.io/badge/license-CC%20BY--NC%204.0-green)](LICENSE)
 
