@@ -141,7 +141,7 @@ bmzskill 不适合：
 请优先下载 Release 附件中的安装包：
 
 ```text
-bmzskill-codex-skills-v0.2.2.zip
+bmzskill-v0.2.2.zip
 ```
 
 解压后，把里面的 `bmz` 文件夹复制到你的 Codex skills 目录：
