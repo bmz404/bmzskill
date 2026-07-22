@@ -162,7 +162,7 @@ npx -y skills add bmz404/bmzskill -g --all
 bmzskill-v0.2.2.zip
 ```
 
-解压后，把里面的 `bmz` 文件夹复制到你的 Codex skills 目录。
+解压后，把里面的 `bmz` 文件夹复制到你所使用 Agent 的 skills 目录。
 
 ### 手动安装：从源码仓库复制
 
@@ -173,7 +173,7 @@ skills/
   bmz/
 ```
 
-如果你下载的是 GitHub 的 Code ZIP，注意不要把整个 `bmzskill-main` 文件夹或外层 `skills` 文件夹直接复制到 Codex skills 目录。
+如果你下载的是 GitHub 的 Code ZIP，注意不要把整个 `bmzskill-main` 文件夹或外层 `skills` 文件夹直接复制到你的 Agent skills 目录。
 
 正确做法是：只复制 `skills` 里面的 `bmz` 文件夹。
 
