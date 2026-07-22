@@ -1,4 +1,4 @@
-﻿# bmzskill
+# bmzskill
 
  ![version](https://img.shields.io/badge/version-v0.2.2-blue)
 ![skills](https://img.shields.io/badge/skills-1-black)
@@ -136,18 +136,12 @@ bmzskill 不适合：
 
 ## 安装方式
 
-### 推荐：使用安装包
+### 推荐：一键安装
 
-请优先下载 Release 附件中的安装包：
+在终端执行：
 
-```text
-bmzskill-v0.2.2.zip
-```
-
-解压后，把里面的 `bmz` 文件夹复制到你的 Codex skills 目录：
-
-```text
-bmz/
+```bash
+npx -y skills add bmz404/bmzskill -g --all
 ```
 
 安装完成后，新开一个任务，输入：
@@ -157,6 +151,18 @@ bmz/
 ```
 
 即可开始使用。
+
+如果你的电脑提示找不到 `git`，需要先安装 Git，再重新执行上面的命令。
+
+### 备用：使用安装包
+
+如果一键安装失败，可以下载 Release 附件中的安装包：
+
+```text
+bmzskill-v0.2.2.zip
+```
+
+解压后，把里面的 `bmz` 文件夹复制到你的 Codex skills 目录。
 
 ### 手动安装：从源码仓库复制
 
@@ -172,7 +178,6 @@ skills/
 正确做法是：只复制 `skills` 里面的 `bmz` 文件夹。
 
 如果你只想先跑通一次完整流程，从 `/bmz 新手入门` 开始即可。
-
 ## 许可证
 
 本项目采用 [CC BY-NC 4.0](LICENSE) 许可证。
@@ -182,4 +187,5 @@ skills/
 - 商业用途需要单独授权，请联系作者。
 
 禁止将本项目内容直接用于付费知识产品、训练营、社群、咨询产品、企业交付或商业化二次包装。
+
 
