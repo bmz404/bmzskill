@@ -4,11 +4,9 @@
 
 本次发布内容：
 
-- `/bmz` 主入口
-- `/bmz-lyrics-check` 歌词质检
-- `/bmz-preflight` 发布前体检
-- `/bmz-publish` 发布包生成
-- `/bmz-review` 发布后数据复盘
+- `/bmz` 总控入口
+
+`/bmz` 内部包含创作启发、歌词质检、发布前体检、发布包生成和发布后数据复盘流程。用户不需要分别安装或调用多个子 skill。
 
 ## 2. 发布前文件确认
 
@@ -23,10 +21,6 @@
 - `docs/OPEN_SOURCE_RELEASE_CHECKLIST.md`
 - `docs/判断标准说明.md`
 - `skills/bmz/SKILL.md`
-- `skills/bmz-lyrics-check/SKILL.md`
-- `skills/bmz-preflight/SKILL.md`
-- `skills/bmz-publish/SKILL.md`
-- `skills/bmz-review/SKILL.md`
 
 ## 3. 隐私与安全检查
 
@@ -62,10 +56,10 @@
 
 1. `/bmz 新手入门`
 2. `/bmz 开始写歌，主题为分手后嘴硬`
-3. `/bmz-lyrics-check` 检查歌词
-4. `/bmz-preflight` 检查待发布视频或首帧
-5. `/bmz-publish` 生成发布包
-6. `/bmz-review` 复盘数据
+3. `/bmz 检查这段歌词`
+4. `/bmz 检查待发布视频或首帧`
+5. `/bmz 给这条作品做发布包`
+6. `/bmz 复盘这条作品数据`
 
 每一步都要确认：
 
@@ -81,7 +75,7 @@ README 应说明：
 - bmzskill 是什么
 - 判断标准来源与使用边界
 - 核心流程是什么
-- 5 个模块分别做什么
+- `/bmz` 一个入口分别如何处理创作启发、歌词质检、发布前体检、发布包生成和数据复盘
 - 如何开始使用
 - 发布包规则
 - 数据复盘标准
@@ -103,7 +97,29 @@ README 不应说明：
 6. 添加合适标签，例如：`music`、`ai`、`creator-tools`、`short-video`、`songwriting`
 7. 发布后用全新对话框加载一次，再跑完整闭环测试
 
-## 8. 发布后观察
+## 8. Release 附件检查
+
+发布 GitHub Release 时，建议同时提供两个附件：
+
+- `bmzskill-v0.2.2-source.zip`：源码包，包含 README、docs、LICENSE、CHANGELOG、VERSION 和 `skills/`。
+- `bmzskill-codex-skills-v0.2.2.zip`：安装包，解压后顶层直接是 `bmz` skill 文件夹。
+
+安装包的理想结构：
+
+```text
+bmz/SKILL.md
+bmz/templates/onboarding.md
+bmz/templates/songwriting.md
+bmz/templates/lyrics-check.md
+bmz/templates/preflight.md
+bmz/templates/publish.md
+bmz/templates/review.md
+bmz/workflows/song-release-loop.md
+```
+
+不要把本地 handoff 文件打入公开附件。
+
+## 9. 发布后观察
 
 发布后重点观察用户反馈：
 
@@ -113,12 +129,12 @@ README 不应说明：
 - 用户是否能提供有效的数据截图进行复盘
 - 是否还有不清晰、不该出现或容易误导的表达
 
-发现问题后，优先修当前 5 个模块。
+发现问题后，优先修 `/bmz` 内部对应流程。
 
-## 9. 当前发布判断
+## 10. 当前发布判断
 
 当前发布包已经具备一个完整闭环：
 
-写歌意图进入 `/bmz`，歌词质量进入 `/bmz-lyrics-check`，发布前判断进入 `/bmz-preflight`，发布包装进入 `/bmz-publish`，数据反馈进入 `/bmz-review`。
+用户只需要进入 `/bmz`。写歌意图、歌词质量、发布前判断、发布包装和数据反馈都由 `/bmz` 自动识别并处理。
 
 它适合作为 bmzskill 的 GitHub 发布包。
