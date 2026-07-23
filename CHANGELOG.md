@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+- 明确采用「主 Agent + 子 Agent」架构，修复长会话记忆压缩导致的专家判断质量下降。
+- 主 Agent（`/bmz/SKILL.md`）改为纯客户经理：只做意图识别、填模板字段、spawn 全新子 Agent、统一转述；自身不再执行专家判断，也不把专家规则堆在自己上下文里。
+- 将专家流程拆为两部分：`templates/*.prompt.md` 是带 `{{USER_INPUT}}` / `{{CONTEXT}}` 占位符的参数化提示词模板（主 Agent 填字段后作为子 Agent 的系统提示）；`knowledge/*.md` 是独立的专家知识库文件（由子 Agent 自行加载）。
+- 每次派发的子 Agent 都是独立、干净的新实例，知识库从头满血加载，长会话不会压缩任何一次判断。
+- `workflows/song-release-loop.md` 同步改为「每个阶段 spawn 对应子 Agent」的编排说明。
+- 安装包仍为单 skill `bmz/`，用户只需记住 `/bmz` 一个入口。
+
 ## 0.2.2
 
 - 保持 `/bmz` 为唯一公开入口。
