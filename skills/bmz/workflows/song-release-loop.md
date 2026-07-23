@@ -1,6 +1,6 @@
 # 歌曲短视频发布闭环工作流
 
-本工作流用于帮助 `/bmz` 推进一首原创音乐 demo 从主题到发布复盘的完整闭环。它不是公开入口，而是内部路线图。
+本工作流用于帮助主 Agent（`/bmz`）推进一首原创音乐 demo 从主题到发布复盘的完整闭环。它不是公开入口，而是内部路线图。
 
 ## 总目标
 
@@ -12,14 +12,22 @@
 
 每一步都要服务同一个问题：这首歌是否值得继续测试、修改、发布或放大。
 
+## 架构说明（主 Agent + 子 Agent）
+
+bmzskill 采用**主 Agent + 子 Agent** 架构，本工作流描述的每个阶段都由主 Agent **spawn 一个全新的专家子 Agent** 完成：
+
+- 主 Agent（`/bmz/SKILL.md`）只做「识别需求 → 填模板字段 → 派发 → 转述」，不执行任何专家判断。
+- 每个专家子 Agent 用 `templates/<expert>.prompt.md`（填好用户数据后的参数化提示词）作为系统提示，并加载 `knowledge/<expert>.md` 作为知识库。
+- 每次派发的子 Agent 都是**独立、干净的新实例**，专家知识库从头满血加载，因此长会话不会压缩任何一次判断的质量。
+
 ## 角色分工
 
-- `/bmz/SKILL.md`：负责识别用户当前状态、选择内部流程、统一回复。
-- `templates/songwriting.md`：用户只有主题或想法时，用来拆听众、方向和 8 句主打段结构。
-- `templates/lyrics-check.md`：用户有歌词或主打段时，用来判断歌词风险。
-- `templates/preflight.md`：用户有视频、截图、首帧或待发布素材时，用来判断发布前风险。
-- `templates/publish.md`：用户准备发布时，用来生成标题、首屏文案钩子、置顶评论和标签。
-- `templates/review.md`：用户发布后有数据时，用来判断下一轮动作。
+- `/bmz/SKILL.md`：主 Agent，负责识别用户当前状态、填字段、spawn 对应子 Agent、统一回复。
+- 子 Agent「创作启发」：用户只有主题或想法时，spawn 它来拆听众、方向和 8 句主打段结构（提示词 `templates/songwriting.prompt.md` + 知识库 `knowledge/songwriting.md`）。
+- 子 Agent「歌词质检」：用户有歌词或主打段时，spawn 它来判断歌词风险（提示词 `templates/lyrics-check.prompt.md` + 知识库 `knowledge/lyrics-check.md`）。
+- 子 Agent「发布前体检」：用户有视频、截图、首帧或待发布素材时，spawn 它来判断发布前风险（提示词 `templates/preflight.prompt.md` + 知识库 `knowledge/preflight.md`）。
+- 子 Agent「发布包生成」：用户准备发布时，spawn 它来生成标题、首屏文案钩子、置顶评论和标签（提示词 `templates/publish.prompt.md` + 知识库 `knowledge/publish.md`）。
+- 子 Agent「发布后复盘」：用户发布后有数据时，spawn 它来判断下一轮动作（提示词 `templates/review.prompt.md` + 知识库 `knowledge/review.md`）。
 
 ## 阶段判断
 
@@ -33,7 +41,7 @@
 
 处理：
 
-- 使用 `templates/songwriting.md`。
+- spawn 子 Agent「创作启发」（填 `{{USER_INPUT}}` = 主题，`{{CONTEXT}}` = 补充信息）。
 - 不默认直接写完整歌词。
 - 输出目标听众、3 个可写方向和 8 句主打段结构。
 
@@ -52,7 +60,7 @@
 
 处理：
 
-- 使用 `templates/lyrics-check.md`。
+- spawn 子 Agent「歌词质检」（填 `{{USER_INPUT}}` = 歌词，`{{CONTEXT}}` = 补充信息）。
 - 默认只审查，不主动改写。
 - 重点判断第一句抓人、活人感、逻辑、情绪递进和短视频传播适配。
 
@@ -77,7 +85,7 @@
 
 处理：
 
-- 使用 `templates/preflight.md`。
+- spawn 子 Agent「发布前体检」（填 `{{USER_INPUT}}` = 视频/素材描述，`{{CONTEXT}}` = 曲风/说明）。
 - 不承诺专业音频分析。
 - 判断画面、字幕、标题、标签、首屏文案钩子和歌词是否打向同一类听众。
 
@@ -97,7 +105,7 @@
 
 处理：
 
-- 使用 `templates/publish.md`。
+- spawn 子 Agent「发布包生成」（填 `{{USER_INPUT}}` = 发布需求/素材，`{{CONTEXT}}` = 目标平台）。
 - 发布包必须服务同一类听众。
 - 标签不超过 5 个，必须包含 `#原创音乐` 和 `#demo`。
 
@@ -117,7 +125,7 @@
 
 处理：
 
-- 使用 `templates/review.md`。
+- spawn 子 Agent「发布后复盘」（填 `{{USER_INPUT}}` = 数据，`{{CONTEXT}}` = 投流/分发情况）。
 - 判断问题发生在画面、歌词、发布包、分发人群还是歌曲资产。
 - 不鼓励无脑投流。
 
@@ -148,4 +156,4 @@
 3. 当前最主要风险是什么。
 4. 下一步应该做什么。
 
-不要让用户自己选择模板，不要暴露文件路径，不要把内部模板名当作公开入口。
+不要让用户自己选择模板，不要暴露文件路径，不要把内部模板名当作公开入口。所有专家判断都在 spawn 出的子 Agent 内部完成，主 Agent 只做转述。
