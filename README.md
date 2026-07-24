@@ -162,7 +162,7 @@ bmzskill 不适合：
 npx -y skills add bmz404/bmzskill -g --all
 ```
 
-安装完成后，新开一个任务，输入：
+安装完成后，在Agent新开一个任务，输入：
 
 ```text
 /bmz 新手入门
