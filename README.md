@@ -10,26 +10,6 @@ bmzskill 由自媒体博主「白帽子（AI音乐研究中）」创建，用于
 
 bmzskill 不是一键生成歌曲的按钮，而是一套面向音乐短视频传播的判断流程。用户只需要记住 `/bmz` 一个入口，它会像主理人一样理解需求，再把任务委派给对应的专家子 Agent，最后统一给出判断和下一步。
 
-## 架构：主 Agent + 子 Agent
-
-bmzskill 从 v0.3.0 起明确采用**主 Agent + 子 Agent** 架构，解决单 skill 内容过多导致的长会话记忆压缩问题：
-
-- **主 Agent（`/bmz`）** 是纯客户经理：只做意图识别、把用户数据填进提示词模板的占位符、spawn 一个全新的专家子 Agent、再把子 Agent 的回复转述给用户。**主 Agent 自己不执行任何专家判断，也不把专家规则堆在自己上下文里。**
-- **专家子 Agent** 每次都是独立、干净的新实例：以 `templates/<expert>.prompt.md`（填好用户数据后的参数化提示词）作为系统提示，并加载 `knowledge/framework.md`、`knowledge/case-loading.md`、`knowledge/<expert>.md` 和 `knowledge/references/` 中对应的真实案例与方法论。因为每次都从头满血加载知识，长会话不会压缩任何一次判断的质量。
-- 专家流程分为两部分：参数化的**提示词模板**（`templates/*.prompt.md`，主 Agent 填字段后交给子 Agent）与独立的**知识库文件**（`knowledge/*.md`，子 Agent 自己加载）。
-
-```text
-用户 -> /bmz 主 Agent（识别+填字段+派发）
-                |
-                v  spawn 全新子 Agent
-       ┌────────┴────────┬──────────┬──────────┬──────────┐
-    创作启发          歌词质检    发布前体检   发布包生成   发布后复盘
-    .prompt.md        .prompt.md  .prompt.md  .prompt.md  .prompt.md
-    +knowledge/        +knowledge/ +knowledge/ +knowledge/ +knowledge/
-```
-
-完整发布闭环放在 `bmz/workflows/song-release-loop.md` 里，描述一首歌从主题到数据复盘的连续阶段，以及每个阶段应 spawn 哪个子 Agent。
-
 ## 核心流程
 
 ```text
@@ -96,6 +76,26 @@ bmzskill 从 v0.3.0 起明确采用**主 Agent + 子 Agent** 架构，解决单 
 ```
 
 然后上传后台数据截图，或直接写出播放量、2 秒跳出、5 秒留存、完播率、点赞、收藏、评论、转发等数据。
+
+## 架构：主 Agent + 子 Agent
+
+bmzskill 从 v0.3.0 起明确采用**主 Agent + 子 Agent** 架构，解决单 skill 内容过多导致的长会话记忆压缩问题：
+
+- **主 Agent（`/bmz`）** 是纯客户经理：只做意图识别、把用户数据填进提示词模板的占位符、spawn 一个全新的专家子 Agent、再把子 Agent 的回复转述给用户。**主 Agent 自己不执行任何专家判断，也不把专家规则堆在自己上下文里。**
+- **专家子 Agent** 每次都是独立、干净的新实例：以 `templates/<expert>.prompt.md`（填好用户数据后的参数化提示词）作为系统提示，并加载 `knowledge/framework.md`、`knowledge/case-loading.md`、`knowledge/<expert>.md` 和 `knowledge/references/` 中对应的真实案例与方法论。因为每次都从头满血加载知识，长会话不会压缩任何一次判断的质量。
+- 专家流程分为两部分：参数化的**提示词模板**（`templates/*.prompt.md`，主 Agent 填字段后交给子 Agent）与独立的**知识库文件**（`knowledge/*.md`，子 Agent 自己加载）。
+
+```text
+用户 -> /bmz 主 Agent（识别+填字段+派发）
+                |
+                v  spawn 全新子 Agent
+       ┌────────┴────────┬──────────┬──────────┬──────────┐
+    创作启发          歌词质检    发布前体检   发布包生成   发布后复盘
+    .prompt.md        .prompt.md  .prompt.md  .prompt.md  .prompt.md
+    +knowledge/        +knowledge/ +knowledge/ +knowledge/ +knowledge/
+```
+
+完整发布闭环放在 `bmz/workflows/song-release-loop.md` 里，描述一首歌从主题到数据复盘的连续阶段，以及每个阶段应 spawn 哪个子 Agent。
 
 ## 判断原则
 
