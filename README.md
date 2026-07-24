@@ -1,7 +1,5 @@
 # bmzskill
 
-v0.3.5 release-check：完整方法论与案例库已随单 skill 一起发布在 `bmz/knowledge/references/`。所有专家子 Agent 必须先加载 `knowledge/framework.md`、`knowledge/case-loading.md` 和对应专家知识库，再按模块读取具体案例卡/方法卡/曲风卡/歌词样本；所有模块默认输出完整深度审查，不输出摘要版；创作启发只给方向和功能骨架，不直接代写歌词；发布前体检优先检查廉价 AI 伪真实素材，命中时总分封顶 4.0。
-
  ![version](https://img.shields.io/badge/version-v0.3.5-blue)
 ![skills](https://img.shields.io/badge/skills-1-black)
 [![license](https://img.shields.io/badge/license-CC%20BY--NC%204.0-green)](LICENSE)
